@@ -1,16 +1,16 @@
-// Update with your config settings.
+const settings = require('./settings.json');
 
 module.exports = {
 
   development: {
     client: 'postgresql',
     connection: {
-      "user": "development",
-      "password": "development",
-      "database": "test_db",
-      "hostname": "localhost",
-      "port": 5432,
-      "ssl": true
+      "user": settings.user,
+      "password": settings.password,
+      "database": settings.database,
+      "hostname": settings.hostname,
+      "port": settings.port,
+      "ssl": settings.ssl
     }
   },
 
