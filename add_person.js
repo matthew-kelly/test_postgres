@@ -1,16 +1,6 @@
-const settings = require("./settings"); // settings.json
+const knexConfig = require("./knexfile.js");
 const moment = require("moment");
-const knex = require("knex")({
-  client: 'pg',
-  connection: {
-    user: settings.user,
-    password: settings.password,
-    database: settings.database,
-    host: settings.hostname,
-    port: settings.port,
-    ssl: settings.ssl
-  }
-});
+const knex = require("knex")(knexConfig.development);
 
 const args = process.argv;
 
@@ -20,10 +10,22 @@ const newPersonEntry = {
   birthdate: args[4]
 };
 
+// callback
 knex.insert(newPersonEntry).into('famous_people')
-  .then(function () {
+  .asCallback((err, rows) => {
+    if (err) {
+      console.log(err.stack);
+      return false;
+    }
     console.log("Inserted successfully");
-  })
-  .finally(function () {
     knex.destroy();
   });
+
+// promises
+// knex.insert(newPersonEntry).into('famous_people')
+//   .then(function () {
+//     console.log("Inserted successfully");
+//   })
+//   .finally(function () {
+//     knex.destroy();
+//   });

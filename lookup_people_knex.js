@@ -1,16 +1,6 @@
-const settings = require("./settings"); // settings.json
+const knexConfig = require("./knexfile.js");
 const moment = require("moment");
-const knex = require("knex")({
-  client: 'pg',
-  connection: {
-    user: settings.user,
-    password: settings.password,
-    database: settings.database,
-    host: settings.hostname,
-    port: settings.port,
-    ssl: settings.ssl
-  }
-});
+const knex = require("knex")(knexConfig.development);
 
 
 // command line arguments
@@ -27,4 +17,5 @@ knex
     rows.forEach((person, index) => {
       console.log(`- ${index + 1}: ${person.first_name} ${person.last_name}, born ${moment(person.birthdate).format('YYYY-MM-DD')}`);
     });
+    knex.destroy();
   });
