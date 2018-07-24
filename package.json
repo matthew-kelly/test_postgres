@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/matthew-kelly/test_postgres#readme",
   "dependencies": {
+    "knex": "^0.15.2",
+    "moment": "^2.22.2",
     "pg": "^7.4.3"
   }
 }
