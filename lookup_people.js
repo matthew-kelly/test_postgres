@@ -38,7 +38,8 @@ function runQuery(query, values, cb) {
 function queryByFirstName(name) {
   const query = "SELECT first_name, last_name, TO_CHAR(birthdate, 'yyyy-mm-dd') AS birthdate, ROW_NUMBER () OVER (ORDER BY id) FROM famous_people WHERE first_name LIKE $1::text";
   const values = [name];
-
+  
+  // pass callback to runQuery function
   runQuery(query, values, (data) => {
     console.log("Searching ...");
     console.log(`Found ${data.length} person(s) by the name '${values[0]}':`);
